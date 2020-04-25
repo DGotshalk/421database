@@ -1,0 +1,10 @@
+Cust_ID,Order_ID,Order_Type,Order_Description,Order_Date,Payment_Amount
+1,10100000,Shoes,"Order: Nike PG4,Black/Light Smoke Grey/White",04/01/2020,110
+2,20100000,Shoes,"Order: Adidas Nmd_R1 Shoes, Signal Green/Core Black/Signal Green",03/25/2020,180
+3,30100000,"Shoes, Socks","Order: Nike LeBron 17 Low, Black/Dark Grey/University Red, Nike Everyday Cushioned 3 Pairs, Multicolor/Quarter Length",03/07/2020,174
+4,40100000,Socks,Order: Carhartt Grey Cotton Low Cut Work Sock,02/08/2020,11.24
+5,50100000,Accessory,"Order: SofSole Sneaker Balls 6 Pack, Deodorizer/Freshener Balls",04/05/20202,11.99
+6,60100000,Accessory,"Order: SofSole Shine Sponge, Cleans and Shines Leather",01/10/20202,5.99
+7,7010000,Socks,"Order: AdidasCushioned Crew Socks 3 Pairs, Multicolor/Quarter Length",03/03/2020,13
+8,80100000,Accessory,"Order: Arm & Hammer, Memory Foam Comfort Insoles Unisex",04/04/2020,3.99
+9,90100000,Shoes,"Order: Nike Air Max 2090, Infrared/Dard Sage/Baroque Brown/Black",03/14/2020,160

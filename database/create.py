@@ -1,13 +1,12 @@
-from sqlalchemy import create_engine, MetaData, Table, Integer, Float, String, Column, ForeignKey, Unicode, DateTime
+from sqlalchemy import create_engine, MetaData, Table, Integer, Float, String, Column, ForeignKey, Unicode, DateTime, insert
 from datetime import datetime
-
+from csv import DictReader
 
 metadata = MetaData()
 engine = create_engine('sqlite:///shoestore.db')
 
 customer = Table('CUSTOMER', metadata,
-        Column('CUST_ID', Integer(),primary_key=True),
-        Column('CNAME',  Unicode(50), nullable=False),
+        Column('CUST_ID', Integer(),primary_key=True), 
         Column('EMAIL', String(50), nullable=False, unique=True),
         Column('PHONE_NUM',  Integer()),
         Column('ADDRESS', Unicode(80), nullable=False),
@@ -20,7 +19,7 @@ cust_name = Table('CUST_NAME', metadata,
         Column('MNAME',String(25),nullable=True),
         Column('LNAME', String(25),nullable=False))
 
-payment_type = ('PAYMENT_TYPE', metadata,
+payment_type = Table('PAYMENT_TYPE', metadata,
         Column('CUST_ID', Integer(), ForeignKey('CUSTOMER.CUST_ID'), primary_key=True),
         Column('GIFTCARD', String(16)),
         Column('DEBIT',  String(16)),
@@ -31,7 +30,7 @@ order = Table('ORDER', metadata,
         Column('ORDER_ID', Integer(), primary_key=True),
         Column('ORDER_TYPE', Integer(), nullable=False),
         Column('ORDER_DESCRIPTION', String(50), nullable=False),
-        Column('ORDER_DATE', DateTime(), default=datetime.now, nullable=False),
+        Column('ORDER_DATE', String(20), nullable=False),
         Column('PAYMENT_AMOUNT', Float(), nullable=False))
 
 item = Table('ITEM', metadata,
@@ -63,6 +62,7 @@ contains = Table('CONTAINS', metadata,
 cart = Table('CART', metadata,
         Column('CUST_ID', Integer(), ForeignKey('CUSTOMER.CUST_ID'), primary_key=True),
         Column('ITEM_ID', Unicode(8), ForeignKey('ITEM.ITEM_ID'), primary_key=True),
-        Column('NUM_ITEM', Integer(), nullable=False))
+        Column('NUM_ITEM', Integer(), nullable=True))
 
 metadata.create_all(engine)
+
