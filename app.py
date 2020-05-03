@@ -12,7 +12,7 @@ sys.path.insert(1, './database')
 from create_store import *
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database/shoestore.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./database/shoestore.db'
 database=SQLAlchemy(app)
 
 
