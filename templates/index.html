@@ -8,11 +8,12 @@
 
         </head>
         <body>
+                <!-- Nav Bar -->
                 <div class="navbar navbar-dark bg-dark navbar-expand-lg">
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> 
                                 <span class="navbar-toggler-icon"></span>
                         </button>
-                        <a class="navbar-brand" href="">Shop Items:</a>
+                        <a class="navbar-brand mb-0 h1" href="/ ">Shoe Store</a>
                         <ul class="navbar-nav mr-auto">
                                 <li class="nav-item active">
                                         <a class="nav-link" href="/shoes">Shoes</a>
@@ -24,15 +25,33 @@
                                         <a class="nav-link" href="/accessories">Accessories</a>
                                 </li>
                         </ul>
+                        <!-- Configure login after you can print scripts
+                        <form class="form-inline my-1 my-lg-0" method="POST">
+                        <button type="submit" class="btn btn-dark btn-lg">Login</button>
+                        </button>
+                        </form>
+                        -->
                 </div>
-
-                <h1> Online shoe store</h1>
-                <form name="search" action="." method="GET">
-                        <label>Search</label>
-                        <input type="text" name="query" size="50"> 
-                        <input type="submit" value="submit">
                 
-                </form>
+
+                <!--Main Content-->
+                <h1>{{ Item_type }}</h1>
+               
+                        {% for item in items %}
+                                {{ item }}
+                        {% endfor %}
+                
+
+
+
+
+
+
+
+
+
+
+
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src ="{{url_for('static',filename='js/bootstrap.js')}}"></script>

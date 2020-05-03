@@ -8,11 +8,12 @@
 
         </head>
         <body>
+                <!-- Nav Bar -->
                 <div class="navbar navbar-dark bg-dark navbar-expand-lg">
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> 
                                 <span class="navbar-toggler-icon"></span>
                         </button>
-                        <a class="navbar-brand" href="">Shop Items:</a>
+                        <a class="navbar-brand mb-0 h1" href="/ ">Shoe Store</a>
                         <ul class="navbar-nav mr-auto">
                                 <li class="nav-item active">
                                         <a class="nav-link" href="/shoes">Shoes</a>
@@ -24,18 +25,104 @@
                                         <a class="nav-link" href="/accessories">Accessories</a>
                                 </li>
                         </ul>
+                        <!-- Configure login after you can print scripts
+                        <form class="form-inline my-1 my-lg-0" method="POST">
+                        <button type="submit" class="btn btn-dark btn-lg">Login</button>
+                        </button>
+                        </form>
+                        -->
+                </div>
+                
+
+                <!--Main Content-->
+                <center> <h1>{{ Item_type }}</h1></center>
+                <div class="container">
+                <table class="table table-dark">
+                         <thead>
+                            <tr> 
+                              <th scope="col">Name</th>
+                              <th scope="col">Price</th>
+                              <th scope="col">Brand</th>
+                              <th scope="col">Description</th>
+                            </tr>
+                        </thead> 
+                        <tbody>
+                        {% for item in items %}
+
+                        <tr>
+                        <th scope="row">{{ item.SOCK_NAME }}</th>
+                                <td>${{item.PRICE }}</td> 
+                                <td>{{item.BRAND }}</td> 
+                                <td>{{item.SOCK_DESC }}</td> 
+                                <td><button class="btn btn-primary" 
+                                                data-toggle="modal" 
+                                                data-target="#cartModal"
+                                                data-item="{{item.SOCK_NAME}}"
+                                                data-itemid="{{item.ITEM_ID}}"
+                                                data-price="{{item.PRICE}}" 
+                                                data-brand="{{item.BRAND}}"
+                                                data-desc="{{item.SOCK_DESC}}">Add to Cart</button></td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
                 </div>
 
-                <h1> Online shoe store</h1>
-                <form name="search" action="." method="GET">
-                        <label>Search</label>
-                        <input type="text" name="query" size="50"> 
-                        <input type="submit" value="submit">
-                
-                </form>
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLongTitle">Sock</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                              <ul class="list-group">
+                                      <li class="list-group-item"><span class="price"> price</span></li>
+                                      <li class="list-group-item"><span class="brand">brand</span></li>
+                                      <li class="list-group-item"><span class="desc">desc</span></li>
+                             </ul>
+                      </div>
+                      <div class="modal-footer">
+                        <form name="quantity" action="/socks" method=post>
+                        <label for="quantity">#</label>
+                        <input type="number" step="1" value="1" required id="quantity" name="quantity" size="4"> 
+                        <input type="hidden" class="itemid" id="itemid" name="itemid">
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                        </form>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src ="{{url_for('static',filename='js/bootstrap.js')}}"></script>
+<script>
+        $('#cartModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var item  = button.data('item')
+  var price = button.data('price') 
+  var brand = button.data('brand')
+  var desc = button.data('desc')
+ 
+  var itemid = button.data('itemid')
+  
+  var modal = $(this)
+  modal.find('.modal-title').text(item)  
+  modal.find('.price').text('$'+price)
+  modal.find('.brand').text(brand)
+  modal.find('.desc').text(desc)
+  modal.find('.itemid').val(itemid)
+})
+</script>
         </body>
 </html>
 
