@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+                <meta charset="utf-8">
+                <title>Online Shoe Store</title>
+                <meta name="viewport" content="width=device-width,inital-scale=1">
+                <link href ="{{url_for('static',filename='css/bootstrap.css')}}" rel="stylesheet">
+
+        </head>
+        <body>
+                <div class="navbar navbar-dark bg-dark navbar-expand-lg">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> 
+                                <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <a class="navbar-brand" href="">Shop Items:</a>
+                        <ul class="navbar-nav mr-auto">
+                                <li class="nav-item active">
+                                        <a class="nav-link" href="/shoes">Shoes</a>
+                                </li>
+                                <li class="nav-item active">
+                                        <a class="nav-link" href="/socks">Socks</a>
+                                </li>
+                                <li class="nav-item active">
+                                        <a class="nav-link" href="/accessories">Accessories</a>
+                                </li>
+                        </ul>
+                </div>
+
+                <h1> Online shoe store</h1>
+                <form name="search" action="." method="GET">
+                        <label>Search</label>
+                        <input type="text" name="query" size="50"> 
+                        <input type="submit" value="submit">
+                
+                </form>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src ="{{url_for('static',filename='js/bootstrap.js')}}"></script>
+        </body>
+</html>
+

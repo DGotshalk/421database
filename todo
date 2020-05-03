@@ -1,0 +1,11 @@
+critical:
+        item search function:
+                basic buttons that allow us to:
+                        display all shoes
+                        display all socks
+                        display all accessories
+                        display all items
+                this should be in a top bar
+                should also have a login/ user ability
+                ability to see cart as well
+
