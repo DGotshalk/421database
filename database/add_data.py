@@ -7,7 +7,7 @@ metadata = MetaData()
 engine=create_engine('sqlite:///shoestore.db')
 connection= engine.connect()
 
-with open("./csvfiles/Customter.csv","r") as customerdata:
+with open("./csvfiles/Customer.csv","r") as customerdata:
     custreader = DictReader(customerdata)
     for row in custreader:
         ins = customer.insert().values(
@@ -72,7 +72,8 @@ with open("./csvfiles/shoe.csv","r") as shoefile:
         ins = shoes.insert().values(
                 SHOE_ID = row['Shoe_ID'],
                 SHOE_DESC = row['ShoeName'],
-                SHOE_NAME = row['ShoeDescription'])
+                SHOE_NAME = row['ShoeDescription'],
+                SHOE_TYPE = row["ShoeType"])
         ins.compile().params
         result = connection.execute(ins)
 

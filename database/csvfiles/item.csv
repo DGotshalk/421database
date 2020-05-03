@@ -1,11 +1,79 @@
 Item_ID,Price,Brand,Type
 856145006052,3.99,Arm & Hammer,Accessory
 96506203205,8.99,Arm & Hammer,Accessory
+41388007083,5.29,Arm & Hammer,Accessory
+555043371,6.47,Arm & Hammer,Accessory
 563410376,10.88,Dr. Scholl’s,Accessory
+563410362,7.97,Dr. Scholl’s,Accessory
+4015629,4.92,Dr. Scholl’s,Accessory
+87021,11.99,SofSole,Accessory
+87001,5.99,SofSole,Accessory
+91821,5.99,SofSole,Accessory
+82448,19.99,SofSole,Accessory
+BL050,6.5,Lace Envy,Accessory
+WHT030,4.5,Lace Envy,Accessory
+GRY780,6.5,Lace Envy,Accessory
+BRO345,6.95,Lace Envy,Accessory
 CD5079-001,110,Nike,Shoe
 CD5007-001,160,Nike,Shoe
+CK1195-101,128.97,Nike,Shoe
+BQ5422-200,120,Nike,Shoe
+CU9174-600,160,Nike,Shoe
+AB315122-111,90,Nike,Shoe
+AH8050-002,150,Nike,Shoe
+HU318429-003,110,Nike,Shoe
+AQ4174-160,275,Nike,Shoe
+AO750-306,250,Nike,Shoe
+AT7898-104,270,Nike,Shoe
+CI4757-001,120,Nike,Shoe
+AO8276-100,200,Nike,Shoe
+917166-400,52.97,Nike,Shoe
+835997-404,125,Nike,Shoe
+806561-300,125,Nike,Shoe
+835996-300,120.97,Nike,Shoe
 EG0705,180,Adidas,Shoe
 FV3647,180,Adidas,Shoe
+FV4687,200,Adidas,Shoe
+EG4958,80,Adidas,Shoe
+EE4461,85,Adidas,Shoe
+FV4083,80,Adidas,Shoe
+EF9924,130,Adidas,Shoe
+EH2071,110,Adidas,Shoe
+EH1942,80,Adidas,Shoe
+FV3549,203,Adidas,Shoe
+G28630,77,Adidas,Shoe
+FV4627,42,Adidas,Shoe
+F35188,60,Adidas,Shoe
+EE7138,50,Adidas,Shoe
+D97021,75,Adidas,Shoe
+G28242,120,Adidas,Shoe
+DB3434,120,Adidas,Shoe
+G27679,80,Adidas,Shoe
+CME6355,159.99,Carhartt,Shoe
+CMV1121,129.99,Carhartt,Shoe
+CM03481,134.99,Carhartt,Shoe
+11822006,150,Dr. Martens,Shoe
+11853600,150,Dr. Martens,Shoe
+16736001,110,Dr. Martens,Shoe
+13400200,145,Dr. Martens,Shoe
+24382001,160,Dr. Martens,Shoe
 BH6432,13,Adidas,Socks
 BH6428,13,Adidas,Socks
+Q18127,6,Adidas,Socks
+CM3952,20,Adidas,Socks
+CL5933,16,Adidas,Socks
+SX7667-901,14,Nike,Socks
 SX7166-012,18,Nike,Socks
+SX7166-010,18,Nike,Socks
+SX7166-100,18,Nike,Socks
+SX7039-916,20,Nike,Socks
+A60-3,11.24,Carhartt,Socks
+A61-3,11.24,Carhartt,Socks
+A0001S,11.99,Carhartt,Socks
+A62,11.24,Carhartt,Socks
+A528S,11.99,Carhartt,Socks
+AC237004,10,Dr. Martens,Socks
+AC975100,10,Dr. Martens,Socks
+AC694924,15,Dr. Martens,Socks
+AC694925,3,Dr. Martens,Socks
+AC742002,10,Dr. Martens,Socks

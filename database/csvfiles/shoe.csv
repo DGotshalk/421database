@@ -1,11 +1,44 @@
-Shoe_ID,ShoeName,ShoeDescription
-CD5079-001,PG4,Black/Light Smoke Grey/White
-CD5007-001,LeBron 17 Low,Black/Dark Grey/University Red
-CK1195-101,Nike Zoom DK12,White/Wolf Grey/Black
-BQ5422-200,Light Cream/Fir/White/Pacific Blue,Zoom Freak 1
-CU9174-600,Infrared/Dark Sage/Baroque Brown/Black,Nike Air Max 2090
-AB315122-111,White/White,Nike Air Force 1 ‘07
-AH8050-002,Black/White/Solar Red/Anthracite,Nike Air Max 370
-HU318429-003,Black/Grey/Black,Nike Air Huarache
-EG0705,Grey Three/Core Black/Signal Green,Ultraboost 20 Shoes
-FV3647,Signal Green/Core Black/Signal Green,Nmd_R1 Shoes
+Shoe_ID,ShoeName,ShoeDescription,ShoeType
+CD5079-001,PG4,Black/Light Smoke Grey/White,Athletic
+CD5007-001,LeBron 17 Low,Black/Dark Grey/University Red,Athletic
+CK1195-101,Nike Zoom DK12,White/Wolf Grey/Black,Athletic
+BQ5422-200,Zoom Freak 1,Light Cream/Fir/White/Pacific Blue,Athletic
+CU9174-600,Nike Air Max 2090,Infrared/Dark Sage/Baroque Brown/Black,Athletic
+AB315122-111,Nike Air Force 1 ‘07,White/White,Casual
+AH8050-002,Nike Air Max 370,Black/White/Solar Red/Anthracite,Casual
+HU318429-003,Nike Air Huarache,Black/Grey/Black,Casual
+AQ4174-160,Nike Mercurial Superfly 7 Elite FG,White/Black/Laser Crimson,Athletic/Soccer
+AO750-306,Nike Phantom Venom Elite FG,Green Strike/Black,Athletic/Soccer
+AT7898-104,Nike Mercurial Vapor 13 Elite Neymar Jr. FG,White/Racer Blue/Volt/Black,Athletic/Soccer
+CI4757-001,Nike Vapor Edge Pro OBJ,Black/Black/Anthracite,Athletic/Football
+AO8276-100,Nike Vapor Edge 360 Flyknit,White/Pure Platinum/Wolf Grey/Black,Athletic/Football
+917166-400,Nike Vapor Untouchable 3 Speed,Game Royal/White/Game Royal,Athletic/Football
+835997-404,Nike Zoom Victory 3,Hydrogen Blue/Sky Grey/Metallic Silver/Black,Athletic/Track
+806561-300,Nike High Jump Elite,Electric Green/Metallic Pewter/Black,Athletic/Track
+835996-300,Nike Superfly Elite,Electric Green/Metallic Silver/Black,Athletic/Track
+EG0705,Ultraboost 20 Shoes,Grey Three/Core Black/Signal Green,Athletic/Running
+FV3647,Nmd_R1 Shoes,Signal Green/Core Black/Signal Green,Athletic/Running
+FV4687,Alphaedge 4D Reflective Shoes,Cloud White/Silver Metallic/Core Black,Athletic/Running
+EG4958,Superstar Shoes,Cloud White/Core Black/Cloud White,Casual
+EE4461,U_Path Run Shoes,Ice Mint/Core Black/Shock Red,Athletic/Running
+FV4083,Stan Smith Shoes,Cloud White/Cloud White/Bluebird,Casual
+EF9924,Harden Vol. 4 Shoes,Core Black/Amber Tint/Grey Six,Athletic/Basketball
+EH2071,Dame 6 Shoes,Core Black/Silver Metallic/Cloud White,Athletic/Basketball
+EH1942,Harden Stepback Shoes,Cloud White/Core Black/Dove Grey,Athletic/Basketball
+FV3549,Predator Mutator 20.1 Firm Ground Cleats,Team Royal Blue/Cloud White/Active Red,Athletic/Soccer
+G28630,Copa Gloro 20.2 Firm Ground Cleats,Core Black/Core Black/Solid Grey,Athletic/Soccer
+FV4627,X 19.4 Turf Shoes,Team Royal Blue/Cloud White/Core Black,Athletic/Soccer
+F35188,Adizero 8.0 Cleats,Cloud White/Core Black/Grey Six,Athletic/Football
+EE7138,Freak Carbon Mid Cleats,Core Black/Cloud White/Dark Green,Athletic/Football
+D97021,Adizero 8.0 Primeknit Cleats,Solar Red/Cloud White/Cloud Black,Athletic/Football
+G28242,Icon V Cleats,Core Black/Core Black/Orange,Athletic/Baseball
+DB3434,Afterburner 6 Cleats,Cloud White/Gold Metallic/Cloud White,Athletic/Baseball
+G27679,Speed Turf Shoes,Grey Four/Cloud White/Grey,Athletic/Baseball
+CME6355,Ground Force 6-Inch Composite Toe Work Boot,Brown Oil Tanned,Work/Utility
+CMV1121,Mudrunner 10-Inch Non-Safety Toe Rubber Boot,Black,Work/Utility
+CM03481,Lightweight Low Carbon Nano Toe Work Hiker,Black Leather/Nylon,Work/Utility
+11822006,1460 Smooth Leather Lace Up,Black,Casual
+11853600,2976 Smooth Leather Chelsea Boots,Cherry Red,Casual
+16736001,Dante Brando Black,Black Brando,Casual
+13400200,Ironbridge Extra Wide Leather Work Boots,Teak Industrial Trailblaze,Work/Utility
+24382001,1460 Slip Resistant Black,Black Industrial Full Grain,Work/Utility
