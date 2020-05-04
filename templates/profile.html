@@ -25,9 +25,10 @@
                                         <a class="nav-link" href="/accessories">Accessories</a>
                                 </li>
                         </ul>
-                        <form class="form-inline my-2 my-lg-0" action="/profile" >
-                        <button type="submit" class="btn btn-info btn-lg">Profile</button>  
+                        <form class="form-inline my-2 my-lg-0" action="/profile">
+                       <button type="submit" class="btn btn-info btn-lg">Profile</button>  
                         </form>
+
                         {% if current_user.is_authenticated %}
                         <form class="form-inline my-2 my-lg-0" action="/logout" method="POST">
                         <button type="submit" class="btn btn-danger btn-lg">Logout</button>  
@@ -41,7 +42,26 @@
                 
 
                 <!--Main Content-->
-                <h1>{{ Item_type }}</h1>
+
+
+                <div class="container">         
+                        <center><h1>Profile</h1></center>
+                        <table class ="table table-hober table-dark">
+                                <thead>
+                                        <tr>
+                                                <th scope="col">Name</th>
+                                        </tr>
+                                </thead>
+                                {% for item in cart %}
+                                <tr>
+                                        <th scope="row">{{ item.ITEM_ID }}</td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                </div>
+
+
+
 
 
 

@@ -8,4 +8,4 @@ Cust_ID,Email,Phone_Num,Address,Password,Payment_Type
 7,JohnJ@Gmails.com,202-555-0126,"939 6th St. North Augusta  SC 29841",3E46004A410725B9F8584048291A28CF,Debit
 8,JaneM@gmails.com,202-555-0126,"14 Annadale Street Ypsilanti  MI 48197",8B433670258F79578F9A4E5EA388B007,Credit
 9,CharlieM@gmails.com,202-555-0152,"55 Carson Rd. Mahopac  NY 10541",06CFD4B175971CB17CDA5E76215151A1,Giftcard
-10,testuser@gmail.com.808-555-5555, "Non of your business sr HI 96720, test,Credit
+10,testuser@gmail.com,808-555-5555,Non of your business sr HI 96720,test,Credit

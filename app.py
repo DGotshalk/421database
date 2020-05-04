@@ -32,10 +32,21 @@ def index():
 
 @app.route('/profile')
 def profile():
-    
-    cart = database.session.
-    
-    return render_template('profile.html')
+    """ 
+    cart = database.session.query(Item.c.ITEM_ID)\
+            .add_columns(Item.c.PRICE,Item.c.BRAND,Item.c.TYPE)\
+            .and_(add_columns(Shoes.c.SHOE_DESC,Shoes.c.SHOE_NAME, Shoes.c.SHOE_TYPE)\
+            .where(Shoe.c.SHOE_ID==Item.c.ITEM_ID)\
+            .or_(add_columns(Socks.c.SOCK_DESC, Socks.c.SOCK_NAME, Socks)\
+            .where(Sock.c.SOCK_ID==Item.c.ITEM_ID)\
+            .or_(add_columns(Accessory.c.ACC_DESC, Accessory.c.ACC_NAME)\
+            .where(Accessory.c.ACC_ID == Item.c.ITEM_ID)))).all()
+    """   
+    cust_ID = database.session.query(Customer.c.CUST_ID).filter(Customer.c.EMAIL == current_user.email).first()
+    cust_ID = cust_ID[0]
+    cart = database.session.query(Item.c.ITEM_ID).filter(Cart.c.ITEM_ID == Item.c.ITEM_ID).filter(Cart.c.CUST_ID == cust_ID).all()
+
+    return render_template('profile.html', cart = cart)
 
 
 @app.route('/logout',methods=['POST'])
@@ -147,8 +158,6 @@ class User(UserMixin):
     def __init__(self,username, password=None):
         self.id = username
         self.email = username
-        self.username = username
-        self.password_hash = password 
         self.password = password
 
 

@@ -25,13 +25,16 @@
                                         <a class="nav-link" href="/accessories">Accessories</a>
                                 </li>
                         </ul>
+                        <form class="form-inline my-2 my-lg-0" action="/profile" >
+                        <button type="submit" class="btn btn-info btn-lg">Profile</button>  
+                        </form>
                         {% if current_user.is_authenticated %}
                         <form class="form-inline my-2 my-lg-0" action="/logout" method="POST">
-                        <button type="submit" class="btn btn-dark btn-lg">Logout</button>  
+                        <button type="submit" class="btn btn-danger btn-lg">Logout</button>  
                         </form>
                         {% else %}
                                 <form class="form-inline my-2 my-lg-0" action="/login">
-                                <button type="submit" class="btn btn-dark btn-lg">Login</button>  
+                                <button type="submit" class="btn btn-success btn-lg">Login</button>  
                                 </form>
                         {% endif %}       
                 </div>
