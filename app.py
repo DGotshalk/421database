@@ -82,7 +82,13 @@ def profile():
                             .join(Cart, Accessory.c.ACC_ID == Cart.c.ITEM_ID)\
                             .filter(Cart.c.CUST_ID == cust_ID)
         
-    user = database.session.query(Customer.c.EMAIL).add_columns(Customer.c.ADDRESS, Cust_Name.c.FNAME, Cust_Name.c.MNAME, Cust_Name.c.LNAME).join(Cust_Name, Customer.c.CUST_ID == Cust_Name.c.CUST_ID).filter(Customer.c.CUST_ID == cust_ID)
+    user = database.session.query(Customer.c.EMAIL)\
+            .add_columns(Customer.c.ADDRESS, 
+                    Cust_Name.c.FNAME, 
+                    Cust_Name.c.MNAME, 
+                    Cust_Name.c.LNAME)\
+                            .join(Cust_Name, Customer.c.CUST_ID == Cust_Name.c.CUST_ID)\
+                            .filter(Customer.c.CUST_ID == cust_ID).first()
 
     return render_template('profile.html', cart=cart, shoe_cart=shoe_cart, acc_cart=acc_cart, sock_cart=sock_cart, user=user)
 
