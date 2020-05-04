@@ -13,7 +13,7 @@ from create_store import *
 from flask_login import LoginManager, login_user, current_user, UserMixin, logout_user
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./database/shoestore.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database/shoestore.db'
 app.config['SECRET_KEY']="all nighters are brutal"
 database=SQLAlchemy(app)
 login_manager= LoginManager()
@@ -24,33 +24,98 @@ login_manager.init_app(app)
 
 @app.route('/')
 def index():
-    
-
     return render_template('index.html',Item_type="Shoe Store", items=['1','2','3'])
 
 
 
+@app.route('/profile',methods=['POST'])
+def remove_from_cart():
+    request.form.get('next')
+    item_id = request.form['item_id']
+    cust_id = request.form['cust_id']
+    
+    deletion = Cart.delete().where(Cart.c.CUST_ID == cust_id).where(Cart.c.ITEM_ID == item_id) 
+    deletion.compile().params
+    connection = database.engine.connect()
+    connection.execute(deletion) 
+    return redirect(url_for('profile'))
+
 @app.route('/profile')
 def profile():
-    """ 
-    cart = database.session.query(Item.c.ITEM_ID)\
-            .add_columns(Item.c.PRICE,Item.c.BRAND,Item.c.TYPE)\
-            .and_(add_columns(Shoes.c.SHOE_DESC,Shoes.c.SHOE_NAME, Shoes.c.SHOE_TYPE)\
-            .where(Shoe.c.SHOE_ID==Item.c.ITEM_ID)\
-            .or_(add_columns(Socks.c.SOCK_DESC, Socks.c.SOCK_NAME, Socks)\
-            .where(Sock.c.SOCK_ID==Item.c.ITEM_ID)\
-            .or_(add_columns(Accessory.c.ACC_DESC, Accessory.c.ACC_NAME)\
-            .where(Accessory.c.ACC_ID == Item.c.ITEM_ID)))).all()
-    """   
     cust_ID = database.session.query(Customer.c.CUST_ID).filter(Customer.c.EMAIL == current_user.email).first()
     cust_ID = cust_ID[0]
-    cart = database.session.query(Item.c.ITEM_ID).filter(Cart.c.ITEM_ID == Item.c.ITEM_ID).filter(Cart.c.CUST_ID == cust_ID).all()
+   
+    cart = database.session.query(Cart.c.ITEM_ID).filter(Cart.c.CUST_ID == cust_ID)
 
-    return render_template('profile.html', cart = cart)
+    shoe_cart = database.session.query(Shoes.c.SHOE_NAME)\
+            .add_columns(Item.c.PRICE,
+                    Shoes.c.SHOE_TYPE,
+                    Item.c.ITEM_ID,
+                    Item.c.BRAND,
+                    Shoes.c.SHOE_DESC,
+                    Cart.c.CUST_ID,
+                    Cart.c.NUM_ITEM)\
+                            .join(Item, Shoes.c.SHOE_ID == Item.c.ITEM_ID)\
+                            .join(Cart, Shoes.c.SHOE_ID == Cart.c.ITEM_ID)\
+                            .filter(Cart.c.CUST_ID == cust_ID)
 
+    
+    sock_cart =  database.session.query(Socks.c.SOCK_NAME)\
+            .add_columns(Item.c.PRICE, 
+                    Item.c.ITEM_ID,
+                    Item.c.BRAND,
+                    Socks.c.SOCK_DESC,
+                    Cart.c.NUM_ITEM,
+                    Cart.c.CUST_ID)\
+                            .join(Item, Socks.c.SOCK_ID == Item.c.ITEM_ID)\
+                            .join(Cart, Socks.c.SOCK_ID == Cart.c.ITEM_ID)\
+                            .filter(Cart.c.CUST_ID == cust_ID)
+
+    acc_cart = database.session.query(Accessory.c.ACC_NAME)\
+            .add_columns(Item.c.PRICE, 
+                    Item.c.ITEM_ID,
+                    Item.c.BRAND,
+                    Accessory.c.ACC_DESC,
+                    Cart.c.NUM_ITEM,
+                    Cart.c.CUST_ID)\
+                            .join(Item, Accessory.c.ACC_ID == Item.c.ITEM_ID)\
+                            .join(Cart, Accessory.c.ACC_ID == Cart.c.ITEM_ID)\
+                            .filter(Cart.c.CUST_ID == cust_ID)
+        
+    user = database.session.query(Customer.c.EMAIL).add_columns(Customer.c.ADDRESS, Cust_Name.c.FNAME, Cust_Name.c.MNAME, Cust_Name.c.LNAME).join(Cust_Name, Customer.c.CUST_ID == Cust_Name.c.CUST_ID).filter(Customer.c.CUST_ID == cust_ID)
+
+    return render_template('profile.html', cart=cart, shoe_cart=shoe_cart, acc_cart=acc_cart, sock_cart=sock_cart, user=user)
+
+
+
+
+
+@app.route('/purchase', methods=["POST"])
+def add_to_cart():
+    request.form.get('next')
+    if current_user.is_authenticated:
+        item = request.form['itemid']
+        quantity = request.form['quantity']
+        cust_ID = database.session.query(Customer.c.CUST_ID).filter(Customer.c.EMAIL == current_user.email).first()
+        
+        val = database.session.query(Cart.c.CUST_ID).add_columns(Cart.c.ITEM_ID,Cart.c.NUM_ITEM).filter(Cart.c.ITEM_ID == item and Cart.c.CUST_ID == cust_ID).first()
+        if val is None: 
+            new = Cart.insert().values({Cart.c.CUST_ID:cust_ID[0], Cart.c.ITEM_ID:item,Cart.c.NUM_ITEM:quantity}) 
+            new.compile().params 
+            connection = database.engine.connect()
+            connection.execute(new)  
+        else: 
+            new = Cart.update().where(Cart.c.CUST_ID == cust_ID[0]).where(Cart.c.ITEM_ID==item).values(NUM_ITEM = int(val[2])+int(quantity))
+            new.compile().params
+            connection = database.engine.connect()
+            connection.execute(new)
+    else:
+        return render_template('login.html')
+    return redirect(url_for('index'))
 
 @app.route('/logout',methods=['POST'])
 def logout():
+    request.form.get('next')
     logout_user()
     return redirect(url_for('index'))
 
@@ -70,6 +135,7 @@ def login():
 
 @app.route('/login', methods=["POST"])
 def login_info(): 
+    request.form.get('next')
     username = request.form['user']
     password = request.form['pass']
     user = User(username,password)
@@ -85,11 +151,12 @@ def login_info():
 
 @app.route('/shoes')
 def shoes():
-    #if 'username' in session 
+
     return render_template('shoes.html',Item_type="Shoes", items=shoedisplay())
 
 @app.route('/shoes',methods=["POST"])
 def get_shoe():
+    request.form.get('next')
     quantity = request.form['quantity']
     item_id = request.form['itemid']
 
@@ -103,6 +170,7 @@ def socks():
 
 @app.route('/socks',methods=['POST'])
 def get_socks():
+    request.form.get('next')
     quantity = request.form['quantity']
     item_id = request.form['itemid']
     return redirect(url_for('socks'))
@@ -113,6 +181,7 @@ def Accessories():
 
 @app.route('/accessories',methods=["POST"])
 def get_accessories():
+    request.form.get('next')
     quantity = request.form['quantity']
     item_id = request.form['itemid']
     return redirect(url_for('accessories'))

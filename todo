@@ -1,12 +1,13 @@
 critical:
         item search function:
                 basic buttons that allow us to:
-                        display all shoes
-                        display all socks
-                        display all accessories
                         display all items
-                this should be in a top bar
+                        this should be in a top bar
 
                 should also have a login/ user ability
                 ability to see cart as well
+                ability to remove from cart
+                ability to buy and see orders
+
+                at the very least, search options on home page
 

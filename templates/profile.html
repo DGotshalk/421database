@@ -43,24 +43,109 @@
 
                 <!--Main Content-->
 
+<div class="jumbotron">
+        <h1 class="display-4">{{ user.LNAME }}, {{ user.FNAME }} {{ user.MNAME }}</h1>
+        <p class="lead">{{ user.EMAIL }}</p>
+  <hr class="my-4">
+  <p> {{ user.ADDRESS }} </p>
+</div>
 
+
+                
                 <div class="container">         
-                        <center><h1>Profile</h1></center>
-                        <table class ="table table-hober table-dark">
-                                <thead>
-                                        <tr>
-                                                <th scope="col">Name</th>
-                                        </tr>
-                                </thead>
-                                {% for item in cart %}
+                        <center><h1>Cart</h1></center>
+                        <div class="container">
+                        <table class="table  table-dark">
+                                 <thead>
+                                    <tr> 
+                                      <th scope="col">Name</th>
+                                      <th scope="col">Price</th>
+                                      <th scope="col">Type</th>
+                                      <th scope="col">Brand</th>
+                                      <th scope="col">Description</th>
+                                        <th scope="col"># in cart</th>
+                                    </tr>
+                                </thead> 
+                                <tbody>
+                                {% for item in shoe_cart %}
+
                                 <tr>
-                                        <th scope="row">{{ item.ITEM_ID }}</td>
+                                        <th scope="row">{{ item.SHOE_NAME }}</th>
+                                        <td>${{item.PRICE }}</td>
+                                        <td>{{item.SHOE_TYPE}}</td>
+                                        <td>{{item.BRAND }}</td> 
+                                        <td>{{item.SHOE_DESC }}</td> 
+                                        <td>{{item.NUM_ITEM }}</td>
+                                        <form action="/profile" method="post">
+                                                <input type ="hidden" name="item_id" value="{{ item.ITEM_ID }}">
+                                                <input type ="hidden" name="cust_id" value="{{ item.CUST_ID }}">
+                                        <td><button type="submit" class="btn btn-danger">Remove</button></td>
+                                        </form>
                                 </tr>
                                 {% endfor %}
                                 </tbody>
-                </div>
+                        </div>
+                      
+                        <table class="table table-dark">
+                                 <thead>
+                                    <tr> 
+                                      <th scope="col">Name</th>
+                                      <th scope="col">Price</th>
+                                      <th scope="col">Brand</th>
+                                      <th scope="col">Description</th>
+                                      <th scope="col"># in cart</th>
+                                    </tr>
+                                </thead> 
+                                <tbody>
+                                        
+                                {% for item in sock_cart %}
 
+                                <tr>
+                                <th scope="row">{{ item.SOCK_NAME }}</th>
+                                        <td>${{item.PRICE }}</td> 
+                                        <td>{{item.BRAND }}</td> 
+                                        <td>{{item.SOCK_DESC }}</td> 
+                                        <td>{{item.NUM_ITEM }}</td>
+                                        <form action="/profile" method="post">
+                                                <input type ="hidden" name="item_id" value="{{ item.ITEM_ID }}">
+                                                <input type ="hidden" name="cust_id" value="{{ item.CUST_ID }}">
+                                        <td><button type="submit" class="btn btn-danger">Remove</button></td>
+                                        </form>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                     
 
+                    
+                        <table class="table  table-dark">
+                                 <thead>
+                                    <tr> 
+                                      <th scope="col">Name</th>
+                                      <th scope="col">Price</th>
+                                      <th scope="col">Brand</th>
+                                      <th scope="col">Description</th>
+                                        <th scope="col"># in cart</th>
+                                    </tr>
+                                </thead> 
+                                <tbody>
+                                {% for item in acc_cart %}
+
+                                <tr>
+                                <th scope="row">{{ item.ACC_NAME }}</th>
+                                        <td>${{item.PRICE }}</td> 
+                                        <td>{{item.BRAND }}</td> 
+                                        <td>{{item.ACC_DESC }}</td> 
+                                        <td>{{item.NUM_ITEM }}</td>
+                                        <form action="/profile" method="post">
+                                                <input type ="hidden" name="item_id" value="{{ item.ITEM_ID }}">
+                                                <input type ="hidden" name="cust_id" value="{{ item.CUST_ID }}">
+                                        <td><button type="submit" class="btn btn-danger">Remove</button></td>
+                                        </form>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                        </div>
+                       
 
 
 
