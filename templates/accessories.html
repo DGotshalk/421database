@@ -25,13 +25,16 @@
                                         <a class="nav-link" href="/accessories">Accessories</a>
                                 </li>
                         </ul>
-                        <!-- Configure login after you can print scripts
-                        <form class="form-inline my-1 my-lg-0" method="POST">
-                        <button type="submit" class="btn btn-dark btn-lg">Login</button>
-                        </button>
+                        {% if current_user.is_authenticated %}
+                        <form class="form-inline my-2 my-lg-0" action="/logout" method="POST">
+                        <button type="submit" class="btn btn-danger btn-lg">Logout</button>  
                         </form>
-                        -->
-                </div>
+                        {% else %}
+                                <form class="form-inline my-2 my-lg-0" action="/login">
+                                <button type="submit" class="btn btn-success btn-lg">Login</button>  
+                                </form>
+                        {% endif %}       
+               </div>
                 
 
                 <!--Main Content-->
