@@ -24,7 +24,11 @@ login_manager.init_app(app)
 
 @app.route('/')
 def index():
-    return render_template('index.html',Item_type="Shoe Store", items=['1','2','3'])
+
+    shoes = shoedisplay()
+    accessories=accessorydisplay()
+    socks=sockdisplay()
+    return render_template('index.html',Item_type="Shoe Store", shoes=shoes, accessories=accessories, socks=socks)
 
 
 
