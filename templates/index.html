@@ -41,28 +41,41 @@
                 
 
                 <!--Main Content-->
+
+
                 <center><h1>{{ Item_type }}</h1></center>
 
+                        <div class="container"> 
+                                <form action="." method="post">
+                                <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            
+                                <button class="btn btn-dark btn-outline-secondary" type="submit">Search</button>
+                          </div>
+                          <input type="text" class="form-control" name="query" placeholder="types(accessory, shoes, socks); details(name: , price: , color: )" comma  aria-label="" aria-describedby="basic-addon1">
+                                </form>
+                        </div>                
+                        </div>
+                
                 <div class="container">
                 <table class="table table-dark">
                          <thead>
                             <tr> 
                               <th scope="col">Name</th>
-                              <th scope="col">Price</th>
-                              <th scope="col">Type</th>
+                              <th scope="col">Price</th> 
                               <th scope="col">Brand</th>
                               <th scope="col">Description</th>
                             </tr>
                         </thead> 
                         <tbody>
-                        {% for item in shoes %}
-
+                        {% for item in total %}
+                        
+                        {% if item.TYPE == "Shoe"  %}
                         <tr>
                                 <th scope="row">{{ item.SHOE_NAME }}</th>
-                                <td>${{item.PRICE }}</td>
-                                <td>{{item.SHOE_TYPE}}</td>
+                                <td>${{item.PRICE }}</td> 
                                 <td>{{item.BRAND }}</td> 
-                                <td>{{item.SHOE_DESC }}</td> 
+                                <td>{{ item.SHOE_TYPE }}, {{item.SHOE_DESC }} </td> 
                                 <td><button class="btn btn-primary" 
                                                 data-toggle="modal" 
                                                 data-target="#shoeModal"
@@ -73,173 +86,140 @@
                                                 data-brand="{{item.BRAND}}"
                                                 data-desc="{{item.SHOE_DESC}}">Add to Cart</button></td>
                         </tr>
-                        {% endfor %}
-                        </tbody>
-                </div>
-                <div class="container">
-                <table class="table table-dark">
-                         <thead>
-                            <tr> 
-                              <th scope="col">Name</th>
-                              <th scope="col">Price</th>
-                              <th scope="col">Brand</th>
-                              <th scope="col">Description</th>
-                            </tr>
-                        </thead> 
-                        <tbody>
-                        {% for item in socks %}
-
-                        <tr>
-                        <th scope="row">{{ item.SOCK_NAME }}</th>
-                                <td>${{item.PRICE }}</td> 
-                                <td>{{item.BRAND }}</td> 
-                                <td>{{item.SOCK_DESC }}</td> 
-                                <td><button class="btn btn-primary" 
-                                                data-toggle="modal" 
-                                                data-target="#sockModal"
-                                                data-item="{{item.SOCK_NAME}}"
-                                                data-itemid="{{item.ITEM_ID}}"
-                                                data-price="{{item.PRICE}}" 
-                                                data-brand="{{item.BRAND}}"
-                                                data-desc="{{item.SOCK_DESC}}">Add to Cart</button></td>
-                        </tr>
-                        {% endfor %}
-                        </tbody>
-                </div>
-
-
-
-                <!-- Modal -->
-                <div class="modal fade" id="sockModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLongTitle">Sock</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                              <ul class="list-group">
-                                      <li class="list-group-item"><span class="price"> price</span></li>
-                                      <li class="list-group-item"><span class="brand">brand</span></li>
-                                      <li class="list-group-item"><span class="desc">desc</span></li>
-                             </ul>
-                      </div>
-                      <div class="modal-footer">
-                        <form name="quantity" action="/purchase" method=post>
-                        <label for="quantity">#</label>
-                        <input type="number" step="1" value="1" required id="quantity" name="quantity" size="4"> 
-                        <input type="hidden" class="itemid" id="itemid" name="itemid">
-                        <button type="submit" class="btn btn-primary">Add to Cart</button>
-                        </form>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-               
+                        {% endif %}
+                        {% if item.TYPE == "Socks" %}
+                                
+                                <tr>
+                                        <th scope="row">{{ item.SOCK_NAME }}</th>
+                                        <td>${{item.PRICE }}</td> 
+                                        <td>{{item.BRAND }}</td> 
+                                        <td>{{item.SOCK_DESC }}</td> 
+                                        <td><button class="btn btn-primary" 
+                                                        data-toggle="modal" 
+                                                        data-target="#sockModal"
+                                                        data-item="{{item.SOCK_NAME}}"
+                                                        data-itemid="{{item.ITEM_ID}}"
+                                                        data-price="{{item.PRICE}}" 
+                                                        data-brand="{{item.BRAND}}"
+                                                        data-desc="{{item.SOCK_DESC}}">Add to Cart</button></td>
+                                </tr>
+                                {% endif %}
+                                {% if item.TYPE == "Accessory" %}
+                                
+                                <tr>
+                                <th scope="row">{{ item.ACC_NAME }}</th>
+                                        <td>${{item.PRICE }}</td> 
+                                        <td>{{item.BRAND }}</td> 
+                                        <td>{{item.ACC_DESC }}</td> 
+                                        <td><button class="btn btn-primary" 
+                                                        data-toggle="modal" 
+                                                        data-target="#cartModal"
+                                                        data-item="{{item.ACC_NAME}}"
+                                                        data-itemid="{{item.ITEM_ID}}"
+                                                        data-price="{{item.PRICE}}" 
+                                                        data-brand="{{item.BRAND}}"
+                                                        data-desc="{{item.ACC_DESC}}">Add to Cart</button></td>
+                                </tr>
+                                {% endif %}
+                                {% endfor %}
+                                </tbody>
+                        </div>
 
 
-
-
-
-
+                        <!-- Modal -->
+                        <div class="modal fade" id="sockModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                      <h5 class="modal-title" id="socktitle">Sock</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                      <ul class="list-group">
+                                              <li class="list-group-item"><span class="price"> price</span></li>
+                                              <li class="list-group-item"><span class="brand">brand</span></li>
+                                              <li class="list-group-item"><span class="desc">desc</span></li>
+                                     </ul>
+                              </div>
+                              <div class="modal-footer">
+                                <form name="quantity" action="/purchase" method=post>
+                                <label for="quantity">#</label>
+                                <input type="number" step="1" value="1" required id="quantity" name="quantity" size="4"> 
+                                <input type="hidden" class="itemid" id="itemid" name="itemid">
+                                <button type="submit" class="btn btn-primary">Add to Cart</button>
+                                </form>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                       
 
 
 
-                <!-- Modal -->
-                <div class="modal fade" id="shoeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLongTitle">Shoe</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                              <ul class="list-group">
-                                      <li class="list-group-item"><span class="price"> price</span></li>
-                                      <li class="list-group-item"><span class="shoetype">shoetype</span></li>
-                                      <li class="list-group-item"><span class="brand">brand</span></li>
-                                      <li class="list-group-item"><span class="desc">desc</span></li>
-                             </ul>
-                      </div>
-                      <div class="modal-footer">
-                        <form name="quantity" action="/purchase" method=post>
-                        <label for="quantity">#</label>
-                        <input type="number" step="1" value="1" required id="quantity" name="quantity" size="4"> 
-                        <input type="hidden" class="itemid" id="itemid" name="itemid">
-                        <button type="submit" class="btn btn-primary">Add to Cart</button>
-                        </form>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="container left">
-                <table class="table  table-dark">
-                         <thead>
-                            <tr> 
-                              <th scope="col">Name</th>
-                              <th scope="col">Price</th>
-                              <th scope="col">Brand</th>
-                              <th scope="col">Description</th>
-                            </tr>
-                        </thead> 
-                        <tbody>
-                        {% for item in accessories %}
-
-                        <tr>
-                        <th scope="row">{{ item.ACC_NAME }}</th>
-                                <td>${{item.PRICE }}</td> 
-                                <td>{{item.BRAND }}</td> 
-                                <td>{{item.ACC_DESC }}</td> 
-                                <td><button class="btn btn-primary" 
-                                                data-toggle="modal" 
-                                                data-target="#cartModal"
-                                                data-item="{{item.ACC_NAME}}"
-                                                data-itemid="{{item.ITEM_ID}}"
-                                                data-price="{{item.PRICE}}" 
-                                                data-brand="{{item.BRAND}}"
-                                                data-desc="{{item.ACC_DESC}}">Add to Cart</button></td>
-                        </tr>
-                        {% endfor %}
-                        </tbody>
-                </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="shoeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                      <h5 class="modal-title" id="shoetitle">Shoe</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                      <ul class="list-group">
+                                              <li class="list-group-item"><span class="price"> price</span></li>
+                                              <li class="list-group-item"><span class="shoetype">shoetype</span></li>
+                                              <li class="list-group-item"><span class="brand">brand</span></li>
+                                              <li class="list-group-item"><span class="desc">desc</span></li>
+                                     </ul>
+                              </div>
+                              <div class="modal-footer">
+                                <form name="quantity" action="/purchase" method=post>
+                                <label for="quantity">#</label>
+                                <input type="number" step="1" value="1" required id="quantity" name="quantity" size="4"> 
+                                <input type="hidden" class="itemid" id="itemid" name="itemid">
+                                <button type="submit" class="btn btn-primary">Add to Cart</button>
+                                </form>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
 
 
-                <!-- Modal -->
-                <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLongTitle">Accessory</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                              <ul class="list-group">
-                                      <li class="list-group-item"><span class="price"> price</span></li>
-                                      <li class="list-group-item"><span class="brand">brand</span></li>
-                                      <li class="list-group-item"><span class="desc">desc</span></li>
-                             </ul>
-                      </div>
-                      <div class="modal-footer">
-                        <form name="quantity" action="/purchase" method=post>
-                        <label for="quantity">#</label>
-                        <input type="number" step="1" value="1" required id="quantity" name="quantity" size="4"> 
-                        <input type="hidden" class="itemid" id="itemid" name="itemid">
-                        <button type="submit" class="btn btn-primary">Add to Cart</button>
-                        </form>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                      <h5 class="modal-title" id="sock">Accessory</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                      <ul class="list-group">
+                                              <li class="list-group-item"><span class="price"> price</span></li>
+                                              <li class="list-group-item"><span class="brand">brand</span></li>
+                                              <li class="list-group-item"><span class="desc">desc</span></li>
+                                     </ul>
+                              </div>
+                              <div class="modal-footer">
+                                <form name="quantity" action="/purchase" method=post>
+                                <label for="quantity">#</label>
+                                <input type="number" step="1" value="1" required id="quantity" name="quantity" size="4"> 
+                                <input type="hidden" class="itemid" id="itemid" name="itemid">
+                                <button type="submit" class="btn btn-primary">Add to Cart</button>
+                                </form>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
 
 
 
@@ -247,16 +227,16 @@
 
 
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src ="{{url_for('static',filename='js/bootstrap.js')}}"></script>
-<script>
-        $('#shoeModal').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget) // Button that triggered the modal
-  var item  = button.data('item')
-  var price = button.data('price')
-  var shoetype = button.data('shoetype')
-  var brand = button.data('brand')
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src ="{{url_for('static',filename='js/bootstrap.js')}}"></script>
+        <script>
+                $('#shoeModal').on('show.bs.modal', function (event) {
+          var button = $(event.relatedTarget) // Button that triggered the modal
+          var item  = button.data('item')
+          var price = button.data('price')
+          var shoetype = button.data('shoetype')
+          var brand = button.data('brand')
   var desc = button.data('desc')
  
   var itemid = button.data('itemid')
