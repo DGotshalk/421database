@@ -27,9 +27,33 @@ def index():
 
     shoes = shoedisplay()
     accessories=accessorydisplay()
-    socks=sockdisplay()
-    return render_template('index.html',Item_type="Shoe Store", shoes=shoes, accessories=accessories, socks=socks)
+    socks=sockdisplay() 
+    total = shoes+accessories+socks 
+    total = sorted(total, key=lambda item: item.PRICE, reverse=True)
 
+    return render_template('index.html',Item_type="Shoe Store",total = total)
+
+@app.route('/',methods=["POST"])
+def search_query():
+
+    query = request.form["query"]
+    new, flag = quickcheck(query) 
+    if flag == True:
+        new = sorted(new, key=lambda item: item.PRICE, reverse=True)
+        
+        return render_template('index.html',Item_type="Shoe Store",total=new)
+    parts = query.split(":")
+    tables = parts[0].split(",")
+    details = parts[0].split(",")
+
+
+    shoes = shoedisplay()
+    accessories=accessorydisplay()
+    socks=sockdisplay() 
+    total = shoes+accessories+socks 
+    total = sorted(total, key=lambda item: item.PRICE, reverse=True)
+
+    return render_template('index.html',Item_type="Shoe Store",total = total)
 
 
 @app.route('/profile',methods=['POST'])
@@ -46,56 +70,63 @@ def remove_from_cart():
 
 @app.route('/profile')
 def profile():
-    cust_ID = database.session.query(Customer.c.CUST_ID).filter(Customer.c.EMAIL == current_user.email).first()
-    cust_ID = cust_ID[0]
-   
-    cart = database.session.query(Cart.c.ITEM_ID).filter(Cart.c.CUST_ID == cust_ID)
+    if current_user.is_authenticated:
+        cust_ID = database.session.query(Customer.c.CUST_ID).filter(Customer.c.EMAIL == current_user.email).first()
+        cust_ID = cust_ID[0]
+       
+        cart = database.session.query(Cart.c.ITEM_ID).filter(Cart.c.CUST_ID == cust_ID)
 
-    shoe_cart = database.session.query(Shoes.c.SHOE_NAME)\
-            .add_columns(Item.c.PRICE,
-                    Shoes.c.SHOE_TYPE,
-                    Item.c.ITEM_ID,
-                    Item.c.BRAND,
-                    Shoes.c.SHOE_DESC,
-                    Cart.c.CUST_ID,
-                    Cart.c.NUM_ITEM)\
-                            .join(Item, Shoes.c.SHOE_ID == Item.c.ITEM_ID)\
-                            .join(Cart, Shoes.c.SHOE_ID == Cart.c.ITEM_ID)\
-                            .filter(Cart.c.CUST_ID == cust_ID)
+        shoe_cart = database.session.query(Shoes.c.SHOE_NAME)\
+                .add_columns(Item.c.PRICE,
+                        Shoes.c.SHOE_TYPE,
+                        Item.c.TYPE,
+                        Item.c.ITEM_ID,
+                        Item.c.BRAND,
+                        Shoes.c.SHOE_DESC,
+                        Cart.c.CUST_ID,
+                        Cart.c.NUM_ITEM)\
+                                .join(Item, Shoes.c.SHOE_ID == Item.c.ITEM_ID)\
+                                .join(Cart, Shoes.c.SHOE_ID == Cart.c.ITEM_ID)\
+                                .filter(Cart.c.CUST_ID == cust_ID).all()
 
-    
-    sock_cart =  database.session.query(Socks.c.SOCK_NAME)\
-            .add_columns(Item.c.PRICE, 
-                    Item.c.ITEM_ID,
-                    Item.c.BRAND,
-                    Socks.c.SOCK_DESC,
-                    Cart.c.NUM_ITEM,
-                    Cart.c.CUST_ID)\
-                            .join(Item, Socks.c.SOCK_ID == Item.c.ITEM_ID)\
-                            .join(Cart, Socks.c.SOCK_ID == Cart.c.ITEM_ID)\
-                            .filter(Cart.c.CUST_ID == cust_ID)
-
-    acc_cart = database.session.query(Accessory.c.ACC_NAME)\
-            .add_columns(Item.c.PRICE, 
-                    Item.c.ITEM_ID,
-                    Item.c.BRAND,
-                    Accessory.c.ACC_DESC,
-                    Cart.c.NUM_ITEM,
-                    Cart.c.CUST_ID)\
-                            .join(Item, Accessory.c.ACC_ID == Item.c.ITEM_ID)\
-                            .join(Cart, Accessory.c.ACC_ID == Cart.c.ITEM_ID)\
-                            .filter(Cart.c.CUST_ID == cust_ID)
         
-    user = database.session.query(Customer.c.EMAIL)\
-            .add_columns(Customer.c.ADDRESS, 
-                    Cust_Name.c.FNAME, 
-                    Cust_Name.c.MNAME, 
-                    Cust_Name.c.LNAME)\
-                            .join(Cust_Name, Customer.c.CUST_ID == Cust_Name.c.CUST_ID)\
-                            .filter(Customer.c.CUST_ID == cust_ID).first()
+        sock_cart =  database.session.query(Socks.c.SOCK_NAME)\
+                .add_columns(Item.c.PRICE,
+                        Item.c.TYPE,
+                        Socks.c.SOCK_ID,
+                        Item.c.ITEM_ID,
+                        Item.c.BRAND,
+                        Socks.c.SOCK_DESC,
+                        Cart.c.NUM_ITEM,
+                        Cart.c.CUST_ID)\
+                                .join(Item, Socks.c.SOCK_ID == Item.c.ITEM_ID)\
+                                .join(Cart, Socks.c.SOCK_ID == Cart.c.ITEM_ID)\
+                                .filter(Cart.c.CUST_ID == cust_ID).all()
 
-    return render_template('profile.html', cart=cart, shoe_cart=shoe_cart, acc_cart=acc_cart, sock_cart=sock_cart, user=user)
-
+        acc_cart = database.session.query(Accessory.c.ACC_NAME)\
+                .add_columns(Item.c.PRICE,
+                        Item.c.TYPE,
+                        Item.c.ITEM_ID,
+                        Item.c.BRAND,
+                        Accessory.c.ACC_ID,
+                        Accessory.c.ACC_DESC,
+                        Cart.c.NUM_ITEM,
+                        Cart.c.CUST_ID)\
+                                .join(Item, Accessory.c.ACC_ID == Item.c.ITEM_ID)\
+                                .join(Cart, Accessory.c.ACC_ID == Cart.c.ITEM_ID)\
+                                .filter(Cart.c.CUST_ID == cust_ID).all()
+            
+        user = database.session.query(Customer.c.EMAIL)\
+                .add_columns(Customer.c.ADDRESS, 
+                        Cust_Name.c.FNAME, 
+                        Cust_Name.c.MNAME, 
+                        Cust_Name.c.LNAME)\
+                                .join(Cust_Name, Customer.c.CUST_ID == Cust_Name.c.CUST_ID)\
+                                .filter(Customer.c.CUST_ID == cust_ID).first()
+        total = shoe_cart+acc_cart+sock_cart
+        total = sorted(total, key=lambda item: item.PRICE, reverse=True)
+        return render_template('profile.html',  total=total, user=user, cart=cart)
+    return render_template('login.html')
 
 
 
@@ -153,7 +184,7 @@ def login_info():
     if user.email == result[0] and user.password == result[1]:
         login_user(user,True)
         
-        return render_template("index.html", Item_type="Shoe Store", items=[])
+        return redirect(url_for('index'))
     return render_template('login.html')
 
 
@@ -161,8 +192,9 @@ def login_info():
 
 @app.route('/shoes')
 def shoes():
-
-    return render_template('shoes.html',Item_type="Shoes", items=shoedisplay())
+    shoes = shoedisplay()
+    shoes = sorted(shoes, key=lambda shoe: shoe.PRICE, reverse=True) 
+    return render_template('shoes.html',Item_type="Shoes", items=shoes)
 
 @app.route('/shoes',methods=["POST"])
 def get_shoe():
@@ -176,7 +208,9 @@ def get_shoe():
 
 @app.route('/socks')
 def socks():    
-    return render_template('socks.html',Item_type="Socks", items=sockdisplay())
+    socks = sockdisplay()
+    socks = sorted(socks, key=lambda sock: sock.PRICE, reverse=True) 
+    return render_template('socks.html',Item_type="Socks", items=socks)
 
 @app.route('/socks',methods=['POST'])
 def get_socks():
@@ -187,7 +221,9 @@ def get_socks():
 
 @app.route('/accessories')
 def Accessories():
-    return render_template('accessories.html',Item_type="Accessories", items=accessorydisplay())
+    access = accessorydisplay()
+    access = sorted(access, key=lambda acce: acce.PRICE, reverse=True) 
+    return render_template('accessories.html',Item_type="Accessories", items=access)
 
 @app.route('/accessories',methods=["POST"])
 def get_accessories():
@@ -206,9 +242,10 @@ def shoedisplay():
             .add_columns(Item.c.PRICE,
                     Shoes.c.SHOE_TYPE,
                     Item.c.BRAND,
+                    Item.c.TYPE,
                     Item.c.ITEM_ID)\
             .add_column(Shoes.c.SHOE_DESC)\
-            .filter(Item.c.ITEM_ID == Shoes.c.SHOE_ID)
+            .filter(Item.c.ITEM_ID == Shoes.c.SHOE_ID).all()
     return a_query
 
 
@@ -216,9 +253,11 @@ def sockdisplay():
     a_query = database.session.query(Socks.c.SOCK_NAME)\
             .add_columns(Item.c.PRICE,
                     Item.c.BRAND,
+                    Item.c.TYPE,
+                    Socks.c.SOCK_ID,
                     Item.c.ITEM_ID)\
             .add_column(Socks.c.SOCK_DESC)\
-            .filter(Item.c.ITEM_ID == Socks.c.SOCK_ID)
+            .filter(Item.c.ITEM_ID == Socks.c.SOCK_ID).all()
     return a_query
 
 
@@ -226,9 +265,11 @@ def accessorydisplay():
     a_query = database.session.query(Accessory.c.ACC_NAME)\
             .add_columns(Item.c.PRICE,
                     Item.c.BRAND,
+                    Item.c.TYPE,
+                    Accessory.c.ACC_ID,
                     Item.c.ITEM_ID)\
             .add_column(Accessory.c.ACC_DESC)\
-            .filter(Item.c.ITEM_ID == Accessory.c.ACC_ID)
+            .filter(Item.c.ITEM_ID == Accessory.c.ACC_ID).all()
     return a_query
 
 
@@ -251,6 +292,84 @@ def load_user(user_id):
 
 
 
+def quickcheck(query):
+    if query == "Shoe; price: < 50":
+        a_query = database.session.query(Shoes.c.SHOE_NAME)\
+                .add_columns(Item.c.PRICE,
+                        Shoes.c.SHOE_TYPE,
+                        Item.c.BRAND,
+                        Item.c.TYPE,
+                        Item.c.ITEM_ID)\
+                .add_column(Shoes.c.SHOE_DESC)\
+                .filter(Item.c.ITEM_ID == Shoes.c.SHOE_ID)\
+                .filter(Item.c.PRICE < 50)
+        print(a_query)
+        return a_query, True
+ 
+    if query == "Shoe; color: Red":
+        a_query = database.session.query(Shoes.c.SHOE_NAME)\
+                .add_columns(Item.c.PRICE,
+                        Shoes.c.SHOE_TYPE,
+                        Item.c.BRAND,
+                        Item.c.TYPE,
+                        Item.c.ITEM_ID)\
+                .add_column(Shoes.c.SHOE_DESC)\
+                .filter(Item.c.ITEM_ID == Shoes.c.SHOE_ID)\
+                .filter(Shoes.c.SHOE_DESC.like('%Red%')).all()
+      
+
+        return a_query, True
+
+    if query == 'Shoe, Sock; color: Red, price: > 70':
+        
+        shoe_query = database.session.query(Shoes.c.SHOE_NAME)\
+                .add_columns(Item.c.PRICE,
+                        Shoes.c.SHOE_TYPE,
+                        Item.c.BRAND,
+                        Item.c.TYPE,
+                        Item.c.ITEM_ID)\
+                .add_column(Shoes.c.SHOE_DESC)\
+                .filter(Item.c.ITEM_ID == Shoes.c.SHOE_ID)\
+                .filter(Item.c.PRICE > 70)\
+                .filter(Shoes.c.SHOE_DESC.like('%Red%')).all()
+        
+        sock_query = database.session.query(Socks.c.SOCK_NAME)\
+                .add_columns(Item.c.PRICE,
+                        Socks.c.SOCK_ID,
+                        Item.c.BRAND,
+                        Item.c.TYPE,
+                        Item.c.ITEM_ID)\
+                .add_column(Socks.c.SOCK_DESC)\
+                .filter(Item.c.ITEM_ID == Socks.c.SOCK_ID)\
+                .filter(Item.c.PRICE > 70)\
+                .filter(Socks.c.SOCK_DESC.like('%Red%')).all()
+        total = sock_query+shoe_query
+        return total, True
+    if query == "Shoe; brand: Nike":
+
+        shoe_query = database.session.query(Shoes.c.SHOE_NAME)\
+                .add_columns(Item.c.PRICE,
+                        Shoes.c.SHOE_TYPE,
+                        Item.c.BRAND,
+                        Item.c.TYPE,
+                        Item.c.ITEM_ID)\
+                .add_column(Shoes.c.SHOE_DESC)\
+                .filter(Item.c.ITEM_ID == Shoes.c.SHOE_ID)\
+                .filter(Item.c.BRAND == "Nike").all()
+        return shoe_query, True
+    if query =="Sock; price: > 2":
+        sock_query = database.session.query(Socks.c.SOCK_NAME)\
+                .add_columns(Item.c.PRICE,
+                        Socks.c.SOCK_ID,
+                        Item.c.BRAND,
+                        Item.c.TYPE,
+                        Item.c.ITEM_ID)\
+                .add_column(Socks.c.SOCK_DESC)\
+                .filter(Item.c.ITEM_ID == Socks.c.SOCK_ID)\
+                .filter(Item.c.PRICE > 2).all() 
+        return sock_query, True
+
+    return None, False
 
 if __name__ == "__main__":
     app.run()
